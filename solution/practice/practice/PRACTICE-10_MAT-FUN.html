@@ -1,0 +1,184 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>PRACTICE-10_MAT-FUN</title>
+</head>
+<body>
+<h1>PRACTICE-10_MAT-FUN</h1><h2>Super Getline (p1v1d1)</h2><hr>The getline function from string.h automatically expands its length to incorporate additional characters entered by the user. However, it can only read a single line of the input at a time. I want to write a routine that can read the entire input, not just a single line (i.e. till EOF) and also be able to expand the array size as needed.<br />
+<br />
+Start from the code given which begins with a character array of length just one and reads the entire user input (including newlines and other non-printable characters), all the while expanding the array in case more and more characters are found in the input. Print the entire user input .<br />
+<br />
+<b>Request</b>: It is very easy to cheat in this practice question and pass all the test cases by repeating the input (character by character) as shown below. However if you do so, you will lose an opportunity to learn about pointers and memory allocation and this may affect you in exams where you will not be able to cheat this way.<br />
+<br />
+<b>Example of cheating</b>:<br />
+do{<br />
+    printf("%c", ch = getchar());<br />
+}while(ch != EOF)<br />
+<br />
+<b>Bonus</b>: write a function superGetline which takes as two arguments, the address of the original string array (in other words, a pointer to a pointer) and the address of an integer variable storing the length of the original array and does the above.<br />
+<br />
+<b>You should be able to solve this problem nicely even without using functions. Functions will be covered in class next week. Functions allow you to write cleaner code and allow you to think about the problem in an organized manner. However, although it is perfectly possible to solve most problems in a reasonable manner without using functions at all, code (especially if it is long and complex) written without functions, tends to be more error prone and hard to debug.</b><h3>Visible Test Cases</h3><table border = "1"><tr><th>Input</th><th>Output</th><tr><td>The<br />
+ Hills<br />
+  Are<br />
+   Alive<br />
+    With<br />
+     The<br />
+      Sound<br />
+       Of<br />
+        Music</td><td>-----------BEGIN USER INPUT-----------<br />
+The<br />
+ Hills<br />
+  Are<br />
+   Alive<br />
+    With<br />
+     The<br />
+      Sound<br />
+       Of<br />
+        Music<br />
+-----------END USER INPUT-----------<br />
+User string has 79 characters</td></tr><tr><td></td><td>-----------BEGIN USER INPUT-----------<br />
+<br />
+-----------END USER INPUT-----------<br />
+User string has 0 characters</td></tr><tr><td>ABCDEFGHIJ<br />
+KLMNOPQRS<br />
+TUVWXYZ01</td><td>-----------BEGIN USER INPUT-----------<br />
+ABCDEFGHIJ<br />
+KLMNOPQRS<br />
+TUVWXYZ01<br />
+-----------END USER INPUT-----------<br />
+User string has 30 characters</td></tr></table><hr><hr><h2>Tailor-made Tabs (p1v2d1)</h2><hr>The anatomy of the tab character is a bit funny. It does not always produce a sequence of 4 spaces. Instead, it produces just enough spaces so that the next character after the tab character is aligned to what is known as a <i>tab stop</i>. See the following websites for details<br />
+<a href = "https://en.wikipedia.org/wiki/Tab_key">https://en.wikipedia.org/wiki/Tab_key</a><br />
+<a href = "https://en.wikipedia.org/wiki/Tab_stop">https://en.wikipedia.org/wiki/Tab_stop</a><br />
+<br />
+In this question we will implement a new tab character where the user can specify the tab size. The first line of the input will contain a strictly positive integer n and the second line will contain a string. However, the string may contain escape sequences. You have to reprint the string realizing the escape sequences yourself. The escape sequences you have to handle are:<br />
+<br />
+\n Newline<br />
+\\ Backslash<br />
+\" Double quotation mark<br />
+\T Tailor-tab (described below)<br />
+<br />
+If the character \ (backslash) is followed by any other character, print the word "ERROR" (without quotes) as your output.<br />
+<br />
+For example, if the input string is #ABC\"DEF\"# (without the pound symbols), then your output should be<br />
+ABC"DEF"<br />
+<br />
+There will be no traditional tab (\t) character in the string. However, in addition to the above escape sequences, you have to handle a new escape sequence tailor-tab that we define below. Tailor-tab \T is a new tab character we are defining here that aligns characters to the next column divisible by n (n was given to you in line 1). For example if n = 3 and the string is #ABC\TDEF# (without the pound symbols), then your output should be<br />
+ABC  DEF<br />
+<br />
+Note that there are 2 spaces after the letter C so that the next character D gets printed in column 6 which is divisible by 3 (D would have otherwise gotten printed in column 4 which is not divisible by 3). Note that newline characters refresh the column count. Thus, if n = 3 and the user string is #ABC\n\TDEF# (without the pound symbols) then the output must be<br />
+ABC<br />
+  DEF<br />
+so that the character D gets printed in column 3 which is divisible by 3 (it would have otherwise been printed in column 1 which is not divisible by 3.<br />
+<br />
+The user input string will be given in a single line and contain no more than 499 characters. We also assure you that the total characters you have to output (including the extra spaces) will not exceed 999.<br />
+<br />
+<b>Bonus</b>: implement a new function tailorTabs that can take a string and the tab size as its two arguments and print that string according to the rules mentioned above.<br />
+<br />
+<b>You should be able to solve this problem nicely even without using functions. Functions will be covered in class next week. Functions allow you to write cleaner code and allow you to think about the problem in an organized manner. However, although it is perfectly possible to solve most problems in a reasonable manner without using functions at all, code (especially if it is long and complex) written without functions, tends to be more error prone and hard to debug.</b><h3>Visible Test Cases</h3><table border = "1"><tr><th>Input</th><th>Output</th><tr><td>5<br />
+This string \"tests\" whether usual\nescape sequences are handled\\or not</td><td>This string "tests" whether usual<br />
+escape sequences are handled\or not</td></tr><tr><td>3<br />
+This string \'should cause an error</td><td>ERROR</td></tr><tr><td>4<br />
+Tabs\Tcan\Treally\Tmake\nText\Tlook\Tnice</td><td>Tabs   can really  make<br />
+Text   looknice</td></tr><tr><td>5<br />
+Roll\TName\TSection\n001\TSam\TB12\n002\TJim\TB2\n\n003\TRick\TB6</td><td>RollName Section<br />
+001 Sam  B12<br />
+002 Jim  B2<br />
+<br />
+003 Rick B6</td></tr></table><hr><hr><h2>De-Duplicate (p1v3d1)</h2><hr>Read the input and print only those characters which have not previously appeared in input. The input may contain printable characters as well as whitespace characters. Print only the first occurrence of any character.<h3>Visible Test Cases</h3><table border = "1"><tr><th>Input</th><th>Output</th><tr><td>abcdabcdefgh</td><td>abcdefgh</td></tr><tr><td>abcd<br />
+efgh<br />
+pqrs</td><td>abcd<br />
+efghpqrs</td></tr></table><hr><hr><h2>Matrix Mania (p1v4d1)</h2><hr>You will be given a strictly positive integer n in the first line of the input followed by an n x n matrix of integers in the following n lines, each line containing one row of the matrix. In the last line of the input, you will see a list of characters all of which will be capital letters from the set {L,R,H,V,D,A,X}. The list will be terminated by the letter X.<br />
+<br />
+L: rotate the matrix counterclockwise 90 degrees<br />
+R: rotate the matrix clockwise 90 degrees<br />
+H: flip the matrix horizontally<br />
+V: flip the matrix vertically<br />
+D: flip the matrix along its diagonal (i.e. take its transpose)<br />
+A: flip the matrix along its anti-diagonal (lets call it the anti-transpose operation)<br />
+<br />
+Do the operations in sequence and give the matrix after performing all the operations.<br />
+<br />
+<b>Hint</b>: Your code for this question can get very messy if you do not use functions. Define and implement six functions, one for each of the operations, to make your code cleaner and easier to debug.<br />
+<br />
+<b>You should be able to solve this problem nicely even without using functions. Functions will be covered in class next week. Functions allow you to write cleaner code and allow you to think about the problem in an organized manner. However, although it is perfectly possible to solve most problems in a reasonable manner without using functions at all, code (especially if it is long and complex) written without functions, tends to be more error prone and hard to debug.</b><h3>Visible Test Cases</h3><table border = "1"><tr><th>Input</th><th>Output</th><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+HX</td><td>4 3 2 1<br />
+8 7 6 5<br />
+2 1 0 9<br />
+6 5 4 3</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+LX</td><td>4 8 2 6<br />
+3 7 1 5<br />
+2 6 0 4<br />
+1 5 9 3</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+DX</td><td>1 5 9 3<br />
+2 6 0 4<br />
+3 7 1 5<br />
+4 8 2 6</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+AX</td><td>6 2 8 4<br />
+5 1 7 3<br />
+4 0 6 2<br />
+3 9 5 1</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+RDLX</td><td>6 2 8 4<br />
+5 1 7 3<br />
+4 0 6 2<br />
+3 9 5 1</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+VX</td><td>3 4 5 6<br />
+9 0 1 2<br />
+5 6 7 8<br />
+1 2 3 4</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+RHLX</td><td>3 4 5 6<br />
+9 0 1 2<br />
+5 6 7 8<br />
+1 2 3 4</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+RX</td><td>3 9 5 1<br />
+4 0 6 2<br />
+5 1 7 3<br />
+6 2 8 4</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+LLLX</td><td>3 9 5 1<br />
+4 0 6 2<br />
+5 1 7 3<br />
+6 2 8 4</td></tr><tr><td>4<br />
+1 2 3 4<br />
+5 6 7 8<br />
+9 0 1 2<br />
+3 4 5 6<br />
+HARVARDX</td><td>6 2 8 4<br />
+5 1 7 3<br />
+4 0 6 2<br />
+3 9 5 1</td></tr></table><hr><hr></body>
+</html>
